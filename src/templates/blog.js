@@ -43,10 +43,15 @@ const BlogTemplate = ({ data }) => {
         ...data_language,
       })
   }, [currentLanguage, data.blog])
-  console.log("BLOGGGGGGGGGGG", blog)
+
+  // if(blog && blog !== "null" && blog !== "undefined"){
+    if(blog.title){
+    console.log("BLOGGGGGGGGGGG", blog.title)
+  }
+
   return (
     <>
-      {blog &&
+      {blog.title &&
         <SEO
           title={t(`${blog.title}`)}
           description={`blog.shortContent`}
@@ -65,7 +70,7 @@ const BlogTemplate = ({ data }) => {
         />
       </div>
       {blog && <Sharing url={shareUrl} />}
-      <div class="s9-widget-wrapper"></div>
+      <div className="s9-widget-wrapper"></div>
       <BlogContent content={blog.content} />
       <Footer />
     </>

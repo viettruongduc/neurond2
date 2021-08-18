@@ -11,7 +11,6 @@ function SEO({
   title,
   pathname,
 }) {
-  const type = "WebSite"
   const detailsQuery = graphql`
     query DefaultSEOQuery {
       site {
@@ -47,9 +46,9 @@ function SEO({
         //   w.replace(/^\w/, c => c.toUpperCase())
         // )
 
-        console.log("Hello metaThumbnail", metaThumbnail)
-        console.log("Hello title", title, typeof title)
-        console.log(`${url}/${pathname}`)
+        console.log(11111111111111, metaThumbnail)
+        // console.log("Hello title", title, typeof title)
+        // console.log(`${url}/${pathname}`)
 
         const canonical = pathname ? `${url}/${pathname}` : url
 
