@@ -6,7 +6,6 @@ import Header from "../components/Navbar/Navbar.js"
 import Footer from "../components/Footer/Footer.js"
 import BlueBackground from "../components/BlueBackground/BlueBackground.js"
 import BlogContent from "../components/Blog/BlogContent"
-import Sharing from "../components/Sharing/Sharing"
 
 const BlogTemplate = ({ data }) => {
   const currentLanguage =
@@ -15,69 +14,64 @@ const BlogTemplate = ({ data }) => {
       : "en"
 
   const { t } = useTranslation()
-  const [blog, setBlog] = useState({})
+  // const [blog, setBlog] = useState({})
 
-  const siteUrl = data.site.siteMetadata.siteUrl
-  const blogSlug = `blogs/${blog.slug}`
-  const shareUrl = `${siteUrl}/${blogSlug}`
+  // const theBlog = data.blog.blogTranslations.find(
+  //   x => x.languageId === currentLanguage
+  // )
 
-  console.log("datadatadata", data)
+  const queryBlog = data.blog
 
-  const theBlog = data.blog.blogTranslations.find(
-    x => x.languageId === currentLanguage
-  )
-  const theFinalBlog = {
-    thumbnail: data.blog.thumbnail,
-    slug: data.blog.slug,
-    ...theBlog,
+  const blog = {
+    thumbnail: queryBlog.thumbnail,
+    slug: queryBlog.slug,
+    title: queryBlog[0].title,
+    description: queryBlog[0].description,
+    metaKeywords: queryBlog[0].metaKeywords,
+    content: queryBlog[0].content,
+    shortContent: queryBlog[0].shortContent
   }
-  console.log("theFinalBlog", theFinalBlog)
-  const title1 = data.blog.blogTranslations[0].title
-  console.log("theBlog", theBlog)
-  useEffect(() => {
-    const queryBlog = data.blog
-    const DEFAULT_LANGUAGE = "en"
 
-    let data_language = queryBlog.blogTranslations.find(
-      x => x.languageId === currentLanguage
-    )
+  // useEffect(() => {
+  //   const queryBlog = data.blog
+  //   const DEFAULT_LANGUAGE = "en"
 
-    if (data_language == null)
-      data_language = queryBlog.blogTranslations.find(
-        x => x.languageId === DEFAULT_LANGUAGE
-      )
-    data_language &&
-      setBlog({
-        id: queryBlog.id,
-        createdByName: queryBlog.createdByName,
-        createdOn: queryBlog.createdOn,
-        slug: queryBlog.slug,
-        thumbnail: queryBlog.thumbnail,
-        ...data_language,
-      })
-  }, [currentLanguage, data.blog])
-  console.log("BLOGGGGGGGGGGG", blog)
+  //   let data_language = queryBlog.blogTranslations.find(
+  //     x => x.languageId === currentLanguage
+  //   )
+
+  //   if (data_language == null)
+  //     data_language = queryBlog.blogTranslations.find(
+  //       x => x.languageId === DEFAULT_LANGUAGE
+  //     )
+  //   data_language &&
+  //     setBlog({
+  //       id: queryBlog.id,
+  //       createdByName: queryBlog.createdByName,
+  //       createdOn: queryBlog.createdOn,
+  //       slug: queryBlog.slug,
+  //       thumbnail: queryBlog.thumbnail,
+  //       ...data_language,
+  //     })
+  // }, [currentLanguage, data.blog])
+
   return (
     <>
       <SEO
-        title={theFinalBlog.title}
-        description={theFinalBlog.shortContent}
-        metaKeywords={theFinalBlog.metaKeywords}
-        thumbnail={theFinalBlog.thumbnail}
-        pathname={`blogs/${theFinalBlog.slug}`}
-        // isBlogPost
+        title={blog.title}
+        description={blog.shortContent}
+        metaKeywords={blog.metaKeywords}
+        thumbnail={blog.thumbnail}
+        pathname={`blogs/${blog.slug}`}
       />
       <Header />
       <div className="margin-top-2">
         <BlueBackground
           blogInfo="display"
           jobName={blog.title}
-          author={blog.title}
           classCustom="margin-bot-custom"
         />
-        {/* <div class="s9-widget-wrapper"></div> */}
       </div>
-      {blog && <Sharing url={shareUrl} />}
       <div class="s9-widget-wrapper"></div>
       <BlogContent content={blog.content} />
       <Footer />
@@ -104,11 +98,6 @@ export const query = graphql`
         metaDescription
         metaTitle
         metaKeywords
-      }
-    }
-    site {
-      siteMetadata {
-        siteUrl
       }
     }
   }
