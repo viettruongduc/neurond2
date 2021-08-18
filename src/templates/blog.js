@@ -29,10 +29,8 @@ const BlogTemplate = ({ data }) => {
   // })
 
   const siteUrl =  data.site.siteMetadata.siteUrl
-  const blogSlug = `blogs/${blog.slug}`
+  const blogSlug = `blogs/${queryBlog.slug}`
   const shareUrl = `${siteUrl}/${blogSlug}`
-  const title = queryBlog.title
-  const thumbnail = queryBlog.thumbnail
 
   // useEffect(() => {
   //   const queryBlog = data.blog
@@ -59,23 +57,23 @@ const BlogTemplate = ({ data }) => {
   return (
     <>
       <SEO
-        title={t(`${title}`)}
-        description={blog.metaDescription}
-        metaKeywords={blog.metaKeywords}
-        thumbnail={thumbnail}
+        title={t(`${queryBlog.title}`)}
+        description={queryBlog.metaDescription}
+        metaKeywords={queryBlog.metaKeywords}
+        thumbnail={queryBlog.thumbnail}
         pathname={blogSlug}
       />
       <Header />
       <div className="margin-top-2">
         <BlueBackground
           blogInfo="display"
-          jobName={title}
-          author={title}
+          jobName={queryBlog.title}
+          author={queryBlog.title}
           classCustom="margin-bot-custom"
         />
       </div>
       <Sharing url={shareUrl} />
-      <div class="s9-widget-wrapper"></div>
+      <div className="s9-widget-wrapper"></div>
       <BlogContent content={queryBlog.content} />
       <Footer />
     </>
