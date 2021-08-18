@@ -47,7 +47,6 @@ const BlogTemplate = ({ data }) => {
   // if(blog && blog !== "null" && blog !== "undefined"){
     if(blog.title){
     console.log("BLOGGGGGGGGGGG", blog.title)
-  }
 
   return (
     <>
@@ -75,6 +74,7 @@ const BlogTemplate = ({ data }) => {
       <Footer />
     </>
   )
+  }
 }
 
 export default BlogTemplate
