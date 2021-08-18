@@ -20,16 +20,16 @@ const BlogTemplate = ({ data }) => {
   //   x => x.languageId === currentLanguage
   // )
 
-  const queryBlog = data.blog
+  const queryBlog = data.blog.blogTranslations[0]
 
   const blog = {
-    thumbnail: queryBlog.thumbnail,
-    slug: queryBlog.slug,
-    title: queryBlog[0].title,
-    description: queryBlog[0].description,
-    metaKeywords: queryBlog[0].metaKeywords,
-    content: queryBlog[0].content,
-    shortContent: queryBlog[0].shortContent
+    thumbnail: data.blog.thumbnail,
+    slug: data.blog.slug,
+    title: queryBlog.title,
+    description: queryBlog.description,
+    metaKeywords: queryBlog.metaKeywords,
+    content: queryBlog.content,
+    shortContent: queryBlog.shortContent
   }
 
   // useEffect(() => {
