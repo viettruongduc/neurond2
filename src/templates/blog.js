@@ -6,7 +6,7 @@ import Header from "../components/Navbar/Navbar.js"
 import Footer from "../components/Footer/Footer.js"
 import BlueBackground from "../components/BlueBackground/BlueBackground.js"
 import BlogContent from "../components/Blog/BlogContent"
-import Sharing from "../components/Sharing/Sharing";
+import Sharing from "../components/Sharing/Sharing"
 
 const BlogTemplate = ({ data }) => {
   const currentLanguage =
@@ -73,6 +73,7 @@ const BlogTemplate = ({ data }) => {
         />
       </div>
       <Sharing url={shareUrl} />
+      <div class="s9-widget-wrapper"></div>
       <BlogContent content={blog.content} />
       <Footer />
     </>
