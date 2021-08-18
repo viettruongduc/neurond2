@@ -43,7 +43,9 @@ const BlogTemplate = ({ data }) => {
         ...data_language,
       })
   }, [currentLanguage, data.blog])
+
   console.log("BLOGGGGGGGGGGG", blog)
+  
   return (
     <>
       <SEO
