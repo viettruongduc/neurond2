@@ -16,7 +16,7 @@ const BlogTemplate = ({ data }) => {
 
   const { t } = useTranslation()
   const DEFAULT_LANGUAGE = "en"
-  let data_language = queryBlog.blogTranslations.find(x => x.languageId === currentLanguage) 
+  let data_language = data.blog.blogTranslations.find(x => x.languageId === currentLanguage) 
     || DEFAULT_LANGUAGE
   const queryBlog = data.blog.blogTranslations[0]
   const [blog, setBlog] = useState({
