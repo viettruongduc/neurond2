@@ -46,14 +46,15 @@ const BlogTemplate = ({ data }) => {
   console.log("BLOGGGGGGGGGGG", blog)
   return (
     <>
-      <SEO
-        title={t(`Blog 3`)}
-        description={`blog.shortContent`}
-        metaKeywords={blog.metaKeywords}
-        thumbnail={blog.thumbnail}
-        pathname={blogSlug}
-        // isBlogPost
-      />
+      {blog &&
+        <SEO
+          title={t(`${blog.title}`)}
+          description={`blog.shortContent`}
+          metaKeywords={blog.metaKeywords}
+          thumbnail={blog.thumbnail}
+          pathname={blogSlug}
+        />
+      }
       <Header />
       <div className="margin-top-2">
         <BlueBackground
@@ -62,7 +63,6 @@ const BlogTemplate = ({ data }) => {
           author={blog.title}
           classCustom="margin-bot-custom"
         />
-        {/* <div class="s9-widget-wrapper"></div> */}
       </div>
       {blog && <Sharing url={shareUrl} />}
       <div class="s9-widget-wrapper"></div>
