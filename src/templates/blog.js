@@ -20,7 +20,11 @@ const BlogTemplate = ({ data }) => {
   //   x => x.languageId === currentLanguage
   // )
 
-  const queryBlog = data.blog.blogTranslations[0]
+  const defaultBlog = data.blog.blogTranslations[0]
+
+  let blogOtherLanguage = data.blog.blogTranslations.find(x => x.languageId === currentLanguage) 
+
+  const queryBlog = blogOtherLanguage || defaultBlog
 
   const blog = {
     thumbnail: data.blog.thumbnail,
@@ -58,7 +62,7 @@ const BlogTemplate = ({ data }) => {
   return (
     <>
       <SEO
-        title={blog.title}
+        title={t(`${blog.title}`)}
         description={blog.shortContent}
         metaKeywords={blog.metaKeywords}
         thumbnail={blog.thumbnail}
