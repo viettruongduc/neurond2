@@ -6,7 +6,7 @@ import Header from "../components/Navbar/Navbar.js"
 import Footer from "../components/Footer/Footer.js"
 import BlueBackground from "../components/BlueBackground/BlueBackground.js"
 import BlogContent from "../components/Blog/BlogContent"
-import Sharing from "../components/Sharing/Sharing"
+import Sharing from "../components/Sharing/Sharing";
 
 const BlogTemplate = ({ data }) => {
   const currentLanguage =
@@ -15,50 +15,54 @@ const BlogTemplate = ({ data }) => {
       : "en"
 
   const { t } = useTranslation()
-  const [blog, setBlog] = useState({})
+  const DEFAULT_LANGUAGE = "en"
+  let data_language = queryBlog.blogTranslations.find(x => x.languageId === currentLanguage) 
+    || DEFAULT_LANGUAGE
+  const queryBlog = data.blog.blogTranslations[0]
+  const [blog, setBlog] = useState({
+    id: queryBlog.id,
+    createdByName: queryBlog.createdByName,
+    createdOn: queryBlog.createdOn,
+    slug: queryBlog.slug,
+    thumbnail: queryBlog.thumbnail,
+    ...data_language,
+  })
 
-  const siteUrl = data.site.siteMetadata.siteUrl
+  const siteUrl =  data.site.siteMetadata.siteUrl
   const blogSlug = `blogs/${blog.slug}`
   const shareUrl = `${siteUrl}/${blogSlug}`
 
-  useEffect(() => {
-    const queryBlog = data.blog
-    const DEFAULT_LANGUAGE = "en"
+  // useEffect(() => {
+  //   const queryBlog = data.blog
+  //   const DEFAULT_LANGUAGE = "en"
 
-    let data_language = queryBlog.blogTranslations.find(
-      x => x.languageId === currentLanguage
-    )
+  //   let data_language = queryBlog.blogTranslations.find(
+  //     x => x.languageId === currentLanguage
+  //   )
 
-    if (data_language == null)
-      data_language = queryBlog.blogTranslations.find(
-        x => x.languageId === DEFAULT_LANGUAGE
-      )
-    data_language &&
-      setBlog({
-        id: queryBlog.id,
-        createdByName: queryBlog.createdByName,
-        createdOn: queryBlog.createdOn,
-        slug: queryBlog.slug,
-        thumbnail: queryBlog.thumbnail,
-        ...data_language,
-      })
-  }, [currentLanguage, data.blog])
-
-  // if(blog && blog !== "null" && blog !== "undefined"){
-    if(blog.title){
-    console.log("BLOGGGGGGGGGGG", blog.title)
-
+  //   if (data_language == null)
+  //     data_language = queryBlog.blogTranslations.find(
+  //       x => x.languageId === DEFAULT_LANGUAGE
+  //     )
+  //   data_language &&
+  //     setBlog({
+  //       id: queryBlog.id,
+  //       createdByName: queryBlog.createdByName,
+  //       createdOn: queryBlog.createdOn,
+  //       slug: queryBlog.slug,
+  //       thumbnail: queryBlog.thumbnail,
+  //       ...data_language,
+  //     })
+  // }, [currentLanguage, data.blog])
   return (
     <>
-      {blog.title &&
-        <SEO
-          title={t(`${blog.title}`)}
-          description={`blog.shortContent`}
-          metaKeywords={blog.metaKeywords}
-          thumbnail={blog.thumbnail}
-          pathname={blogSlug}
-        />
-      }
+      <SEO
+        title={t(`${blog.title}`)}
+        description={blog.metaDescription}
+        metaKeywords={blog.metaKeywords}
+        thumbnail={blog.thumbnail}
+        pathname={blogSlug}
+      />
       <Header />
       <div className="margin-top-2">
         <BlueBackground
@@ -68,13 +72,11 @@ const BlogTemplate = ({ data }) => {
           classCustom="margin-bot-custom"
         />
       </div>
-      {blog && <Sharing url={shareUrl} />}
-      <div className="s9-widget-wrapper"></div>
+      <Sharing url={shareUrl} />
       <BlogContent content={blog.content} />
       <Footer />
     </>
   )
-  }
 }
 
 export default BlogTemplate
