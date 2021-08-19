@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { graphql } from "gatsby"
 import { useTranslation } from "gatsby-plugin-react-i18next"
 import SEO from "../components/seo"
@@ -13,58 +13,25 @@ const BlogTemplate = ({ data }) => {
       ? localStorage["gatsby-i18next-language"]
       : "en"
 
-      console.log('currentLanguage', currentLanguage)
-
   const { t } = useTranslation()
-  // const defaultBlog = data.blog.blogTranslations[0]
-
   const queryBlog = data.blog
 
   let data_language = queryBlog.blogTranslations.find(
     x => x.languageId === currentLanguage
   )
 
-  const defaultBlog = data_language || queryBlog.blogTranslations[0]
+  const dataBlog = data_language || queryBlog.blogTranslations[0]
 
-
-  const [blog, setBlog] = useState({
+  const blog = {
     thumbnail: queryBlog.thumbnail,
     slug: queryBlog.slug,
-    title: defaultBlog.title,
-    description: defaultBlog.description,
-    metaKeywords: defaultBlog.metaKeywords,
-    content: defaultBlog.content,
-    shortContent: defaultBlog.shortContent
-  })
+    title: dataBlog.title,
+    description: dataBlog.description,
+    metaKeywords: dataBlog.metaKeywords,
+    content: dataBlog.content,
+    shortContent: dataBlog.shortContent
+  }
 
-  // console.log(124646464612, blog.title)
-
-  // // useEffect(() => {
-  //   const queryBlog = data.blog
-  //   const DEFAULT_LANGUAGE = "en"
-
-  //   // let data_language = queryBlog.blogTranslations.find(
-  //   //   x => x.languageId === currentLanguage
-  //   // )
-
-  //   if (data_language == null)
-  //     data_language = queryBlog.blogTranslations.find(
-  //       x => x.languageId === DEFAULT_LANGUAGE
-  //     )
-  //     else{
-  //   // data_language &&
-  //     setBlog({
-  //       id: queryBlog.id,
-  //       createdByName: queryBlog.createdByName,
-  //       createdOn: queryBlog.createdOn,
-  //       slug: queryBlog.slug,
-  //       thumbnail: queryBlog.thumbnail,
-  //       title: data_language.title,
-  //       description: data_language.metaDescription,
-  //       ...data_language,
-  //     })
-  //   }
-  // }, [currentLanguage, data.blog])
   return (
     <>
       <SEO

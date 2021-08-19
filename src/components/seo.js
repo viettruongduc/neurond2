@@ -82,7 +82,7 @@ function SEO({
                 },
                 {
                   property: `og:title`,
-                  content: title,
+                  content: titleUpperCase || defaultTitle,
                 },
                 {
                   property: `og:description`,
@@ -106,7 +106,7 @@ function SEO({
                 },
                 {
                   name: `twitter:title`,
-                  content: title,
+                  content: titleUpperCase || defaultTitle,
                 },
                 {
                   name: `twitter:description`,
