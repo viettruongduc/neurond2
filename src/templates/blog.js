@@ -23,7 +23,7 @@ const BlogTemplate = ({ data }) => {
 
   const dataBlog = data_language || queryBlog.blogTranslations[0]
 
-  const blog = {
+  let blog = {
     thumbnail: queryBlog.thumbnail,
     slug: queryBlog.slug,
     title: dataBlog.title,
@@ -33,6 +33,8 @@ const BlogTemplate = ({ data }) => {
     shortContent: dataBlog.shortContent,
     lang: dataBlog.languageId
   }
+
+  console.log(1111111, blog)
 
   const shareUrl = `${data.site.siteMetadata.siteUrl}/blogs/${blog.slug}`
 
@@ -46,7 +48,6 @@ const BlogTemplate = ({ data }) => {
         thumbnail={blog.thumbnail}
         pathname={`blogs/${blog.slug}`}
         lang={blog.lang}
-        // type="article"
       />
       <Header />
       <div className="margin-top-2">
