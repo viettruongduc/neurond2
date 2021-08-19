@@ -67,6 +67,7 @@ const BlogTemplate = ({ data }) => {
           classCustom="margin-bot-custom"
         />
       </div>
+      <div class="s9-widget-wrapper"></div>
       <BlogContent content={blog.content} />
       <Footer />
     </>
