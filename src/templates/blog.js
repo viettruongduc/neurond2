@@ -13,6 +13,8 @@ const BlogTemplate = ({ data }) => {
       ? localStorage["gatsby-i18next-language"]
       : "en"
 
+      console.log('currentLanguage', currentLanguage)
+
   const { t } = useTranslation()
   const defaultBlog = data.blog.blogTranslations[0]
 
@@ -26,7 +28,9 @@ const BlogTemplate = ({ data }) => {
     shortContent: defaultBlog.shortContent
   })
 
-  useEffect(() => {
+  console.log(124646464612, blog.title)
+
+  // useEffect(() => {
     const queryBlog = data.blog
     const DEFAULT_LANGUAGE = "en"
 
@@ -46,10 +50,10 @@ const BlogTemplate = ({ data }) => {
         slug: queryBlog.slug,
         thumbnail: queryBlog.thumbnail,
         title: data_language.title,
-        description: data_language.description,
+        description: data_language.metaDescription,
         ...data_language,
       })
-  }, [currentLanguage, data.blog])
+  // }, [currentLanguage, data.blog])
   return (
     <>
       <SEO
