@@ -33,7 +33,7 @@ const BlogTemplate = ({ data }) => {
     shortContent: dataBlog.shortContent
   }
 
-  const shareUrl = `${data.site.siteMetadata.siteUrl}blogs/${blog.slug}`
+  const shareUrl = `${data.site.siteMetadata.siteUrl}/blogs/${blog.slug}`
 
   return (
     <>
