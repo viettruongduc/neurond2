@@ -45,6 +45,8 @@ const BlogTemplate = ({ data }) => {
         createdOn: queryBlog.createdOn,
         slug: queryBlog.slug,
         thumbnail: queryBlog.thumbnail,
+        title: data_language.title,
+        description: data_language.description,
         ...data_language,
       })
   }, [currentLanguage, data.blog])
@@ -67,7 +69,7 @@ const BlogTemplate = ({ data }) => {
           classCustom="margin-bot-custom"
         />
       </div>
-      <div class="s9-widget-wrapper"></div>
+      <div className="s9-widget-wrapper sharing-custom wrapper"></div>
       <BlogContent content={blog.content} />
       <Footer />
     </>
