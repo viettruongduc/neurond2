@@ -14,69 +14,59 @@ const BlogTemplate = ({ data }) => {
       : "en"
 
   const { t } = useTranslation()
-  // const [blog, setBlog] = useState({})
-
-  // const theBlog = data.blog.blogTranslations.find(
-  //   x => x.languageId === currentLanguage
-  // )
-
   const defaultBlog = data.blog.blogTranslations[0]
 
-  let blogOtherLanguage = data.blog.blogTranslations.find(x => x.languageId === currentLanguage) 
-
-  const queryBlog = blogOtherLanguage || defaultBlog
-
-  const blog = {
+  const [blog, setBlog] = useState({
     thumbnail: data.blog.thumbnail,
     slug: data.blog.slug,
-    title: queryBlog.title,
-    description: queryBlog.description,
-    metaKeywords: queryBlog.metaKeywords,
-    content: queryBlog.content,
-    shortContent: queryBlog.shortContent
-  }
+    title: defaultBlog.title,
+    description: defaultBlog.description,
+    metaKeywords: defaultBlog.metaKeywords,
+    content: defaultBlog.content,
+    shortContent: defaultBlog.shortContent
+  })
 
-  // useEffect(() => {
-  //   const queryBlog = data.blog
-  //   const DEFAULT_LANGUAGE = "en"
+  useEffect(() => {
+    const queryBlog = data.blog
+    const DEFAULT_LANGUAGE = "en"
 
-  //   let data_language = queryBlog.blogTranslations.find(
-  //     x => x.languageId === currentLanguage
-  //   )
+    let data_language = queryBlog.blogTranslations.find(
+      x => x.languageId === currentLanguage
+    )
 
-  //   if (data_language == null)
-  //     data_language = queryBlog.blogTranslations.find(
-  //       x => x.languageId === DEFAULT_LANGUAGE
-  //     )
-  //   data_language &&
-  //     setBlog({
-  //       id: queryBlog.id,
-  //       createdByName: queryBlog.createdByName,
-  //       createdOn: queryBlog.createdOn,
-  //       slug: queryBlog.slug,
-  //       thumbnail: queryBlog.thumbnail,
-  //       ...data_language,
-  //     })
-  // }, [currentLanguage, data.blog])
-
+    if (data_language == null)
+      data_language = queryBlog.blogTranslations.find(
+        x => x.languageId === DEFAULT_LANGUAGE
+      )
+    data_language &&
+      setBlog({
+        id: queryBlog.id,
+        createdByName: queryBlog.createdByName,
+        createdOn: queryBlog.createdOn,
+        slug: queryBlog.slug,
+        thumbnail: queryBlog.thumbnail,
+        ...data_language,
+      })
+  }, [currentLanguage, data.blog])
   return (
     <>
       <SEO
+        key={blog.id}
         title={t(`${blog.title}`)}
-        description={blog.shortContent}
+        description={blog.metaDescription}
         metaKeywords={blog.metaKeywords}
         thumbnail={blog.thumbnail}
-        pathname={`blogs/${blog.slug}`}
+        slug={`blogs/${blog.slug}`}
       />
       <Header />
       <div className="margin-top-2">
         <BlueBackground
           blogInfo="display"
           jobName={blog.title}
+          author={blog.title}
           classCustom="margin-bot-custom"
         />
       </div>
-      <div class="s9-widget-wrapper"></div>
       <BlogContent content={blog.content} />
       <Footer />
     </>

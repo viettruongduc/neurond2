@@ -2,7 +2,6 @@ import React from "react"
 import PropTypes from "prop-types"
 import Helmet from "react-helmet"
 import { StaticQuery, graphql } from "gatsby"
-import SchemaOrg from "./schema-org"
 function SEO({
   description,
   lang,
@@ -11,9 +10,7 @@ function SEO({
   metaKeywords,
   title,
   pathname,
-  isBlogPost,
 }) {
-  const type = "WebSite"
   const detailsQuery = graphql`
     query DefaultSEOQuery {
       site {
@@ -33,56 +30,19 @@ function SEO({
     <StaticQuery
       query={detailsQuery}
       render={data => {
-        const metaDescription =
-          description || data.site.siteMetadata.description
+        const metaDescription = description || data.site.siteMetadata.description
         const metaThumbnail = thumbnail || data.site.siteMetadata.thumbnail
-        // const metaThumbnail =
-        //   "https://neurondstorage.blob.core.windows.net/neurondasset/blogs%2F1_5Wc2Jwwrgygj_8ygGlgV0w.png"
 
-        const keywords = metaKeywords
-          ? metaKeywords
-          : data.site.siteMetadata.keyWords
+        const keywords = metaKeywords || data.site.siteMetadata.keyWords
         const url = data.site.siteMetadata.siteUrl
         const defaultTitle = data.site.siteMetadata.title
 
-        // const titleUpperCase = title.replace(/\w\S*/g, w =>
-        //   w.replace(/^\w/, c => c.toUpperCase())
-        // )
-
-        console.log("Hello metaThumbnail:", metaThumbnail)
-        console.log("Hello title:", title, typeof title)
-        console.log(`${url}/${pathname}`)
+        const titleUpperCase = title.replace(/\w\S*/g, w =>
+          w.replace(/^\w/, c => c.toUpperCase())
+        )
 
         const canonical = pathname ? `${url}/${pathname}` : url
 
-        // const jsonLd = {
-        //   "@context": `https://schema.org/`,
-        //   "@type": type,
-        //   url: canonical,
-        //   image: metaThumbnail
-        //     ? {
-        //         "@type": `ImageObject`,
-        //         url: metaThumbnail,
-        //         // width: config.shareImageWidth,
-        //         // height: config.shareImageHeight,
-        //       }
-        //     : undefined,
-        //   publisher: {
-        //     "@type": `Organization`,
-        //     name: title,
-        //     logo: {
-        //       "@type": `ImageObject`,
-        //       url: metaThumbnail,
-        //       width: 60,
-        //       height: 60,
-        //     },
-        //   },
-        //   mainEntityOfPage: {
-        //     "@type": `WebPage`,
-        //     "@id": url,
-        //   },
-        //   description,
-        // }
 
         return (
           <>
@@ -91,8 +51,8 @@ function SEO({
               htmlAttributes={{
                 lang,
               }}
-              title={defaultTitle}
-              titleTemplate={data.site.siteMetadata.title}
+              title={titleUpperCase}
+              titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
               link={
                 canonical
                   ? [
@@ -146,7 +106,7 @@ function SEO({
                 },
                 {
                   name: `twitter:title`,
-                  content: defaultTitle,
+                  content: title,
                 },
                 {
                   name: `twitter:description`,
@@ -166,22 +126,6 @@ function SEO({
                 },
               ].concat(meta)}
             />
-            {/* <SchemaOrg
-            isBlogPost={isBlogPost}
-            url={url}
-            title={titleUpperCase || defaultTitle}
-            // thumbnail={metaThumbnail}
-            description={metaDescription}
-            // canonical={canonical}
-            defaultTitle={defaultTitle}
-          /> */}
-            {/* <Helmet>
-              <meta name="twitter:card" content="summary_large_image" />
-              <meta name="twitter:image" content={metaThumbnail} />
-              <meta property="og:image" content={metaThumbnail} />
-              <meta property="og:image:width" content="100" />
-              <meta property="og:image:height" content="100" />
-            </Helmet> */}
           </>
         )
       }}
