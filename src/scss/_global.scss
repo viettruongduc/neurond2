@@ -328,6 +328,11 @@ p {
   display: none !important;
 }
 
-.sharing-custom {
+.sharing {
   align-items: flex-end;
+  flex-direction: row;
+}
+
+.sharing-button {
+  margin-right: 10px;
 }

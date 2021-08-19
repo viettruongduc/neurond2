@@ -22,7 +22,6 @@ const BlogTemplate = ({ data }) => {
   )
 
   const dataBlog = data_language || queryBlog.blogTranslations[0]
-  console.log('data', dataBlog.languageId)
 
   const blog = {
     thumbnail: queryBlog.thumbnail,
@@ -47,7 +46,7 @@ const BlogTemplate = ({ data }) => {
         thumbnail={blog.thumbnail}
         pathname={`blogs/${blog.slug}`}
         lang={blog.lang}
-        type="article"
+        // type="article"
       />
       <Header />
       <div className="margin-top-2">
@@ -58,8 +57,9 @@ const BlogTemplate = ({ data }) => {
           classCustom="margin-bot-custom"
         />
       </div>
-      <div className="s9-widget-wrapper sharing-custom wrapper"></div>
-      <Sharing url={shareUrl}/>
+      <div className="wrapper sharing">
+        <Sharing url={shareUrl}/>
+      </div>
       <BlogContent content={blog.content} />
       <Footer />
     </>

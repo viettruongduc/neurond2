@@ -11,12 +11,12 @@ const FBShareButton = props => {
   let encodedURL = encodeURI(url)
   return (
     <>
+      <FacebookShareButton url={encodedURL} className="sharing-button">
+        <FacebookIcon size={30} />
+      </FacebookShareButton>
       <TwitterShareButton url={encodedURL}>
         <TwitterIcon size={30} />
       </TwitterShareButton>
-      <FacebookShareButton url={encodedURL}>
-        <FacebookIcon size={30} />
-      </FacebookShareButton>
     </>
   )
 }
