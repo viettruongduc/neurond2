@@ -1,29 +1,24 @@
-import React from 'react';
+import React from "react"
 import {
-    FacebookShareButton,
-    TwitterShareButton,
-    LinkedinShareButton,
-    FacebookIcon,
-    TwitterIcon,
-    LinkedinIcon
-} from 'react-share';
+  FacebookShareButton,
+  TwitterShareButton,
+  FacebookIcon,
+  TwitterIcon,
+} from "react-share"
 
- const FBShareButton = props => {
-    let encodedURL = encodeURI(props.url);
-
-    return (
-        <>
-            <TwitterShareButton url={encodedURL}>
-                <TwitterIcon size={30}/>
-            </TwitterShareButton>
-            <FacebookShareButton url={encodedURL}>
-                <FacebookIcon size={30}/>
-            </FacebookShareButton>
-            <LinkedinShareButton url={encodedURL}>
-                <LinkedinIcon size={30}/>
-            </LinkedinShareButton>
-        </>
-      )
+const FBShareButton = props => {
+  const {url} = props;
+  let encodedURL = encodeURI(url)
+  return (
+    <>
+      <TwitterShareButton url={encodedURL}>
+        <TwitterIcon size={30} />
+      </TwitterShareButton>
+      <FacebookShareButton url={encodedURL}>
+        <FacebookIcon size={30} />
+      </FacebookShareButton>
+    </>
+  )
 }
 
-  export default FBShareButton;
+export default FBShareButton

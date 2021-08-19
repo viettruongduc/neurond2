@@ -10,6 +10,7 @@ function SEO({
   metaKeywords,
   title,
   pathname,
+  type
 }) {
   const detailsQuery = graphql`
     query DefaultSEOQuery {
@@ -90,11 +91,15 @@ function SEO({
                 },
                 {
                   property: `og:type`,
-                  content: `website`,
+                  content: type || `website`,
                 },
                 {
                   property: `og:url`,
                   content: pathname ? `${url}/${pathname}` : url,
+                },
+                {
+                  name: `og:locale`,
+                  content: lang
                 },
                 {
                   name: `twitter:card`,
