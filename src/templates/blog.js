@@ -6,6 +6,7 @@ import Header from "../components/Navbar/Navbar.js"
 import Footer from "../components/Footer/Footer.js"
 import BlueBackground from "../components/BlueBackground/BlueBackground.js"
 import BlogContent from "../components/Blog/BlogContent"
+import Sharing from "../components/Sharing/Sharing.js"
 
 const BlogTemplate = ({ data }) => {
   const currentLanguage =
@@ -32,6 +33,8 @@ const BlogTemplate = ({ data }) => {
     shortContent: dataBlog.shortContent
   }
 
+  const shareUrl = `${data.site.siteMetadata.siteUrl}blogs/${blog.slug}`
+
   return (
     <>
       <SEO
@@ -52,6 +55,7 @@ const BlogTemplate = ({ data }) => {
         />
       </div>
       <div className="s9-widget-wrapper sharing-custom wrapper"></div>
+      <Sharing url={shareUrl}/>
       <BlogContent content={blog.content} />
       <Footer />
     </>
@@ -77,6 +81,11 @@ export const query = graphql`
         metaDescription
         metaTitle
         metaKeywords
+      }
+    }
+    site {
+      siteMetadata {
+        siteUrl
       }
     }
   }
